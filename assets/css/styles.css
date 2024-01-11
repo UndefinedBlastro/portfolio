@@ -361,6 +361,12 @@ img {
 .work__img img:hover {
   transform: scale(1.1);
 }
+.video__container {
+  text-align: center;
+}
+.audio__container {
+  padding-left: 415px;
+}
 
 /* ===== CONTACT =====*/
 .contact__input {
