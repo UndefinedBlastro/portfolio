@@ -30,15 +30,15 @@ import {
  */
 
 const PERSONAL_INFO = {
-  name: "YOUR NAME", 
+  name: "UndefinedBlastro", // Replace with your actual name
   title: "Game Developer | 3D Artist | Bot Developer",
   location: "Remote",
-  email: "your.email@example.com",
-  discord: "YourDiscordHandle",
+  email: "undefinedblastro@gmail.com",
+  discord: "blastro2600x",
   discordLink: "https://discordapp.com/users/1252109019490029618",
-  github: "https://github.com/yourusername",
+  github: "https://github.com/undefinedblastro",
   avatar: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=1000&auto=format&fit=crop", 
-  formspreeId: "your-id-here", 
+  formspreeId: "mykzzoor", 
   about: "I specialize in building immersive worlds and functional digital tools, ranging from procedural Unreal Engine plugins to intelligent Discord bots and sleek web applications.",
   detailedAbout: [
     "I am a multi-disciplinary developer with a deep passion for game systems and 3D art. My work often sits at the intersection of technical engineering and creative design.",
