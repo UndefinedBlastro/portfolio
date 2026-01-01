@@ -8,35 +8,37 @@ import {
   Briefcase, 
   Send, 
   ChevronRight, 
-  Gamepad2,
-  Box,
-  MessageSquare,
-  Globe,
-  Cpu,
-  Layers,
-  Palette,
-  Layout,
-  Terminal,
-  MousePointer2,
-  Sparkles
+  Gamepad2, 
+  Box, 
+  MessageSquare, 
+  Globe, 
+  Cpu, 
+  Layers, 
+  Palette, 
+  Layout, 
+  Terminal, 
+  MousePointer2, 
+  Sparkles,
+  Star,
+  Quote
 } from 'lucide-react';
 
 /**
  * Enhanced Portfolio Component
  * Customized for: Game Developer, 3D Modeller, Bot Developer.
- * Update: Integrated Formspree API for real email transmissions.
+ * Final Fix: Stabilized Review carousel and confirmed all imports/exports.
  */
 
 const PERSONAL_INFO = {
-  name: "UndefinedBlastro", // Replace with your actual name
+  name: "YOUR NAME", 
   title: "Game Developer | 3D Artist | Bot Developer",
   location: "Remote",
-  email: "undefinedblastro@gmail.com",
-  discord: "blastro2600x",
+  email: "your.email@example.com",
+  discord: "YourDiscordHandle",
   discordLink: "https://discordapp.com/users/1252109019490029618",
-  github: "https://github.com/undefinedblastro",
-  // FORMSPREE CONFIG: Create a free account at formspree.io and paste your endpoint ID here
-  formspreeId: "mykzzoor", 
+  github: "https://github.com/yourusername",
+  avatar: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=1000&auto=format&fit=crop", 
+  formspreeId: "your-id-here", 
   about: "I specialize in building immersive worlds and functional digital tools, ranging from procedural Unreal Engine plugins to intelligent Discord bots and sleek web applications.",
   detailedAbout: [
     "I am a multi-disciplinary developer with a deep passion for game systems and 3D art. My work often sits at the intersection of technical engineering and creative design.",
@@ -107,26 +109,6 @@ const PROJECTS = [
     icon: <Box className="w-5 h-5" />
   },
   {
-    title: "Environment Props",
-    category: "3D Modeling",
-    description: "Modular environment asset pack featuring stylized architecture and optimized textures.",
-    tech: ["Blender", "Substance", "Unity"],
-    link: "#",
-    github: "#",
-    image: "https://images.unsplash.com/photo-1605142859862-978be7eba909?auto=format&fit=crop&q=80&w=800",
-    icon: <Box className="w-5 h-5" />
-  },
-  {
-    title: "Weapon Assets",
-    category: "3D Modeling",
-    description: "High-fidelity weapon models designed for first-person shooters with clean rigging.",
-    tech: ["Blender", "ZBrush", "PBR"],
-    link: "#",
-    github: "#",
-    image: "https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?auto=format&fit=crop&q=80&w=800",
-    icon: <Box className="w-5 h-5" />
-  },
-  {
     title: "Personal Website",
     category: "Web",
     description: "Modern, animated portfolio site built with React and Tailwind CSS for lightning speed.",
@@ -194,12 +176,11 @@ const App = () => {
   const [formStatus, setFormStatus] = useState(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  
-  // Review Rotation State
   const [reviewIndex, setReviewIndex] = useState(0);
 
-  // Interval for Review Rotation (10 seconds)
+  // Interval for Review Rotation
   useEffect(() => {
+    if (REVIEWS.length === 0) return;
     const interval = setInterval(() => {
       setReviewIndex((prev) => (prev + 1) % REVIEWS.length);
     }, 10000);
@@ -226,13 +207,8 @@ const App = () => {
 
     const sections = document.querySelectorAll('section[id]');
     sections.forEach((section) => observer.observe(section));
-
     window.addEventListener('scroll', handleScroll);
-    sections.forEach(s => {
-      const rect = s.getBoundingClientRect();
-      if (rect.top < window.innerHeight) s.classList.add('is-visible');
-    });
-
+    
     return () => {
       sections.forEach((section) => observer.unobserve(section));
       window.removeEventListener('scroll', handleScroll);
@@ -415,7 +391,7 @@ const App = () => {
           </div>
         </section>
 
-        {/* Reviews Section - Now Auto-Rotating every 10s */}
+        {/* Reviews Section - Auto-Rotating Carousel */}
         <section id="reviews" className="py-32 px-6 scroll-reveal w-full">
           <div className="max-w-4xl mx-auto overflow-hidden">
             <div className="text-center mb-20 reveal-up">
@@ -423,12 +399,12 @@ const App = () => {
               <p className="text-slate-500 font-bold text-2xl uppercase tracking-tighter">Community Feedback</p>
             </div>
             
-            <div className="relative min-h-[350px] flex items-center justify-center">
+            <div className="relative min-h-[450px] md:min-h-[400px]">
               {REVIEWS.map((review, idx) => (
                 <div 
                   key={idx} 
-                  className={`absolute inset-0 p-10 md:p-16 bg-slate-900/50 border border-slate-800 rounded-[3rem] transition-all duration-1000 flex flex-col justify-center
-                    ${idx === reviewIndex ? 'opacity-100 translate-x-0 scale-100' : 'opacity-0 translate-x-12 scale-95 pointer-events-none'}`}
+                  className={`absolute inset-0 p-8 md:p-16 bg-slate-900/50 border border-slate-800 rounded-[3rem] transition-all duration-1000 flex flex-col justify-center
+                    ${idx === reviewIndex ? 'opacity-100 translate-x-0 scale-100 z-10' : 'opacity-0 translate-x-12 scale-95 pointer-events-none z-0'}`}
                 >
                   <div className="absolute top-8 right-12 text-emerald-500/5">
                     <Quote className="w-24 h-24 rotate-180" />
@@ -447,7 +423,6 @@ const App = () => {
               ))}
             </div>
 
-            {/* Carousel Navigation Dots */}
             <div className="flex justify-center gap-3 mt-12">
               {REVIEWS.map((_, i) => (
                 <button
